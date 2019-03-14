@@ -15,14 +15,14 @@ const popupMarkup =  `
 
 </div>
 `;
-var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, teaserElement, quienesquien, pageBody;
+var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, quienesquien, pageBody, itemWrapper;
 transparenciaPopupContainer.innerHTML = popupMarkup;
 pageBody = document.querySelector('body');
 pageBody.appendChild( transparenciaPopupContainer );
-teaserElement = document.querySelector('.node-teaser');
-teaserElement.innerHTML = `
-<p><span class="transparency-item transparency-item--open" data-transparency-popup="false" data-transparency-score="30">Leonardo Espinosa</span> fue elegido esta semana como fiscal ad hoc para las investigaciones que se llevan a cabo en <span class="transparency-item" data-transparency-score="60">Odebrecht</span>. Sin embargo, un documento revelaría que desde hace más de cinco años conoce al fiscal general <span class="transparency-item" data-transparency-score="90">Néstor Humberto Martínez</span>.</p>
-`;
+
+itemWrapper = function( name = '', score = 30) {
+    `<span class="transparency-item transparency-item--open" data-transparency-popup="false" data-transparency-score="${score}">${name}</span>`;
+};
 transparenciaStyle.innerHTML = `
 .transparencia-popup {
     background-color: #fc0;
@@ -105,6 +105,9 @@ document.addEventListener( 'click', function( event ){
         transparenciaPopup.classList.remove( 'transparencia-popup--open' );
     }
 });
+var nestor = document.evaluate("//*[text()[contains(.,'Néstor Humberto Martínez')]]", document, null, XPathResult.STRING_TYPE, null);
+console.log('xpath result is =' + nestor);
+console.log('This document contains ' + nestor.stringValue + ' paragraph elements')
 var sillaFetch = fetch('https://raw.githubusercontent.com/Dejusticia/opaqueness-chrome-addon/develop/datos/nodesjsonv2.json')
     .then(resp => {
         if (!resp.ok) {
@@ -116,13 +119,15 @@ var sillaFetch = fetch('https://raw.githubusercontent.com/Dejusticia/opaqueness-
         return response.json();
     })
     .then(function (myJson) {
-        console.log('myJson bruto = ' + JSON.stringify(myJson));
-        console.log('myJson bruto parsed = ' + JSON.parse(JSON.stringify(myJson)));
+        //console.log('myJson bruto = ' + JSON.stringify(myJson));
+        //console.log('myJson bruto parsed = ' + JSON.parse(JSON.stringify(myJson)));
         var object = JSON.parse(JSON.stringify(myJson));
-        console.log('object.nodes = ' + object.nodes);
+        //console.log('object.nodes = ' + object.nodes);
         object.nodes.forEach(function (item) {
-            console.log(item); // key
-            console.log(item.name); // value
+            //console.log(item); // key
+            //console.log(item.name); // value
+            //var bodyText = '';
+            // itemWrapper
 
         });
         return object.nodes;
