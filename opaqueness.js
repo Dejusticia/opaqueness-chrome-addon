@@ -109,6 +109,7 @@ var sillaFetch = fetch('https://raw.githubusercontent.com/Dejusticia/opaqueness-
         return response.json();
     })
     .then(function (myJson) {
+        console.log('myJson bruto = ' + JSON.stringify(myJson));
         console.log('myJson bruto parsed = ' + JSON.parse(myJson));
         return myJson;
     });
