@@ -104,11 +104,11 @@ document.addEventListener( 'click', function( event ){
         transparenciaPopup.classList.remove( 'transparencia-popup--open' );
     }
 });
-/*var sillaFetch = fetch('https://lasillavacia.com/quienesquien/personas/nodesjsonv2')
+var sillaFetch = fetch('https://raw.githubusercontent.com/Dejusticia/opaqueness-chrome-addon/develop/datos/nodesjsonv2.json')
     .then(function (response) {
         return response.json();
     })
     .then(function (myJson) {
-        console.log(JSON.stringify(myJson));
-        return response.json();
-    });*/
+        console.log('myJson bruto parsed = ' + JSON.parse(myJson));
+        return myJson;
+    });
