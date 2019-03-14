@@ -1,4 +1,5 @@
 'use strict';
+// test source https://static3.businessinsider.com/image/4f5112e169bedd1526000061/facebook-open-graph.jpg
 const popupMarkup =  `
 <div class="">
 <div class="transparencia-popup">
@@ -7,14 +8,14 @@ const popupMarkup =  `
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada felis mi, semper vestibulum lectus vehicula vitae. Sed facilisis...</p>
     <a href="https://www.dejusticia.org" target="_blank">Más en www.ejemplo.dev</a>
     <h4>Red de Relaciones</h4>
-    <img src="https://static3.businessinsider.com/image/4f5112e169bedd1526000061/facebook-open-graph.jpg" width="360">
+    <img src="https://tsicilian.files.wordpress.com/2012/05/social-graph.png" width="360">
     <ul>
         <li data-transparency-action="close">Cerrar</li>
     </ul>
-    
+
 </div>
 `;
-var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, teaserElement;
+var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, teaserElement, quienesquien;
 transparenciaPopupContainer.innerHTML = popupMarkup;
 document.querySelector('body').appendChild( transparenciaPopupContainer );
 teaserElement = document.querySelector('.node-teaser');
@@ -79,7 +80,7 @@ transparenciaStyle.innerHTML = `
     width: 40%;
 }
 .transparency-item[data-transparency-score="30"]::after {
-    width: 30%; 
+    width: 30%;
 }
 .transparency-item[data-transparency-score="20"]::after {
     width: 20%;
@@ -103,3 +104,11 @@ document.addEventListener( 'click', function( event ){
         transparenciaPopup.classList.remove( 'transparencia-popup--open' );
     }
 });
+/*var sillaFetch = fetch('https://lasillavacia.com/quienesquien/personas/nodesjsonv2')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (myJson) {
+        console.log(JSON.stringify(myJson));
+        return response.json();
+    });*/
