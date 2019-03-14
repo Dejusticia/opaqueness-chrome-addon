@@ -3,7 +3,7 @@
 const popupMarkup =  `
 <div class="">
 <div class="transparencia-popup">
-    <h3>Leonardo Espinosa</h3>
+    <h3>Persona Lorem</h3>
     <img src="https://www.elespectador.com/sites/default/files/fiscal_martinez_-_cristian_garavito_0.jpg" width="360">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada felis mi, semper vestibulum lectus vehicula vitae. Sed facilisis...</p>
     <a href="https://www.dejusticia.org" target="_blank">Más en www.ejemplo.dev</a>
@@ -15,9 +15,10 @@ const popupMarkup =  `
 
 </div>
 `;
-var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, teaserElement, quienesquien;
+var transparenciaPopupContainer = document.createElement('div'), transparenciaStyle = document.createElement('style'), transparenciaPopup, transparenciaPopupHeader, teaserElement, quienesquien, pageBody;
 transparenciaPopupContainer.innerHTML = popupMarkup;
-document.querySelector('body').appendChild( transparenciaPopupContainer );
+pageBody = document.querySelector('body');
+pageBody.appendChild( transparenciaPopupContainer );
 teaserElement = document.querySelector('.node-teaser');
 teaserElement.innerHTML = `
 <p><span class="transparency-item transparency-item--open" data-transparency-popup="false" data-transparency-score="30">Leonardo Espinosa</span> fue elegido esta semana como fiscal ad hoc para las investigaciones que se llevan a cabo en <span class="transparency-item" data-transparency-score="60">Odebrecht</span>. Sin embargo, un documento revelaría que desde hace más de cinco años conoce al fiscal general <span class="transparency-item" data-transparency-score="90">Néstor Humberto Martínez</span>.</p>
@@ -105,11 +106,24 @@ document.addEventListener( 'click', function( event ){
     }
 });
 var sillaFetch = fetch('https://raw.githubusercontent.com/Dejusticia/opaqueness-chrome-addon/develop/datos/nodesjsonv2.json')
+    .then(resp => {
+        if (!resp.ok) {
+            throw new Error(resp.status);
+        }
+        return resp;
+    })
     .then(function (response) {
         return response.json();
     })
     .then(function (myJson) {
         console.log('myJson bruto = ' + JSON.stringify(myJson));
-        console.log('myJson bruto parsed = ' + JSON.parse(myJson));
-        return myJson;
+        console.log('myJson bruto parsed = ' + JSON.parse(JSON.stringify(myJson)));
+        var object = JSON.parse(JSON.stringify(myJson));
+        console.log('object.nodes = ' + object.nodes);
+        object.nodes.forEach(function (item) {
+            console.log(item); // key
+            console.log(item.name); // value
+
+        });
+        return object.nodes;
     });
